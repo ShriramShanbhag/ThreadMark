@@ -1,0 +1,229 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #2563eb;
+  --primary-fg: #ffffff;
+  --warning: #b45309;
+  --danger: #b91c1c;
+  --secondary-bg: #f3f4f6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+body { width: 360px; }
+
+.popup-loading {
+  padding: 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.popup {
+  padding: 14px;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.popup-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.popup-tool-tag {
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.popup-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.popup-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.popup-field span {
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+}
+.popup-field input,
+.popup-field textarea {
+  font: inherit;
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  resize: vertical;
+  background: #fff;
+  color: var(--fg);
+}
+.popup-field input:focus,
+.popup-field textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 0;
+  border-color: var(--primary);
+}
+
+.popup-error {
+  color: var(--danger);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.popup-btn-primary,
+.popup-btn-secondary {
+  font: inherit;
+  font-weight: 500;
+  padding: 7px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  border: none;
+}
+.popup-btn-primary {
+  background: var(--primary);
+  color: var(--primary-fg);
+}
+.popup-btn-primary:disabled { background: #93c5fd; cursor: default; }
+.popup-btn-secondary {
+  background: var(--secondary-bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+.popup-btn-secondary:disabled { opacity: 0.6; cursor: default; }
+
+.popup-btn-mini {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.popup-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.popup-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.popup-warning { color: var(--warning); }
+
+.popup-empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 20px 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.popup-view-all {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.bookmark-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: #fff;
+}
+.bookmark-row:hover {
+  background: #f9fafb;
+  border-color: var(--border);
+}
+
+.bookmark-row.broken {
+  background: #fffbeb;
+  border-color: #fde68a;
+  cursor: default;
+}
+
+.bookmark-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.bookmark-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookmark-title {
+  font-weight: 500;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bookmark-desc {
+  color: var(--muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.bookmark-delete {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+  border-radius: 4px;
+}
+.bookmark-delete:hover {
+  color: var(--danger);
+  background: #fee2e2;
+}
