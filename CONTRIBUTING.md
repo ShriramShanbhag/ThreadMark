@@ -1,4 +1,4 @@
- # Contributing to collate AI chats
+ # Contributing to ThreadMark.ai
 
   Thanks for thinking about contributing! This is a small, focused project — issues and PRs of any size are welcome.
 
