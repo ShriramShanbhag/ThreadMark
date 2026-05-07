@@ -2,7 +2,7 @@
 
   > Bookmark and collate interesting chat sessions across ChatGPT, Gemini, Grok, Claude, and Perplexity — all from one Chrome extension. Your data never leaves your browser.
 
-  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+  [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
   [![Manifest](https://img.shields.io/badge/Manifest-V3-green.svg)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 
   ## What it does
