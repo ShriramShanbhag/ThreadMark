@@ -7,7 +7,7 @@
 
   ## What it does
 
-  Ever had a brilliant chat with an AI tool, lost the tab, and never found it again? `collate AI chats` adds a small "Save" button to supported AI sites and a popup library so
+  Ever had a brilliant chat with an AI tool, lost the tab, and never found it again? `ThreadMark.ai` adds a small "Save" button to supported AI sites and a popup library so
   you can keep, search, and revisit your best conversations across tools.
 
   - One library, five tools — no more "was that on Claude or Perplexity?"
