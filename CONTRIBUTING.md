@@ -112,4 +112,4 @@
 
   ## License
 
-  By contributing you agree your changes ship under the project's [MIT license](LICENSE).
+  By contributing you agree your changes ship under the project's [GNU Affero General Public License v3.0](LICENSE). If you don't want your contribution to be AGPL-licensed, please don't submit it.
