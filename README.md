@@ -119,3 +119,10 @@
   ## Contributing
 
   PRs welcome — especially adapter fixes when an AI site redesigns. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, the adapter contract, and the contribution workflow.
+
+  ## License
+  
+  [GNU Affero General Public License v3.0](LICENSE) © 2026 ShriramShanbhag
+  
+  This means you can use, modify, and redistribute the code freely — but if you run a modified version as a network service (e.g., a hosted bookmark-sync backend), you must
+  publish your modified source under the same license.
