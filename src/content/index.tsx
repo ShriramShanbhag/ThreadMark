@@ -51,15 +51,42 @@ function maybeReportDead(adapter: SiteAdapter): void {
     void chrome.runtime.sendMessage(message);
   }, DEAD_REPORT_DELAY_MS);
 }
-
 function onUrlChange(adapter: SiteAdapter): void {
   let lastHref = location.href;
+  let checkObserver: MutationObserver | null = null;
+  let checkTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function cleanupCheck() {
+    if (checkTimer) clearTimeout(checkTimer);
+    if (checkObserver) checkObserver.disconnect();
+    checkTimer = null;
+    checkObserver = null;
+  }
+
   const observer = new MutationObserver(() => {
     if (location.href !== lastHref) {
       lastHref = location.href;
-      const stillLive = adapter.isLiveChat();
-      if (!stillLive) {
+      cleanupCheck();
+
+      // If we are still live, do nothing (keep widget mounted).
+      // If we are not live, unmount and set up a watcher to remount if it becomes live.
+      if (!adapter.isLiveChat()) {
         unmountWidget();
+
+        checkObserver = new MutationObserver(() => {
+          if (adapter.isLiveChat()) {
+            cleanupCheck();
+            if (!document.getElementById(HOST_ID)) {
+              mountWidget(adapter);
+            }
+          }
+        });
+        checkObserver.observe(document.documentElement, { subtree: true, childList: true });
+
+        // Safety timeout to clean up the observer if it never becomes live (5s grace period)
+        checkTimer = setTimeout(() => {
+          cleanupCheck();
+        }, 5000);
       } else if (!document.getElementById(HOST_ID)) {
         mountWidget(adapter);
       }
@@ -67,6 +94,8 @@ function onUrlChange(adapter: SiteAdapter): void {
   });
   observer.observe(document.documentElement, { subtree: true, childList: true });
 }
+
+
 
 function init(): void {
   const adapter = pickAdapter(location);

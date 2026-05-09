@@ -92,6 +92,7 @@
   ## Commit and PR conventions
 
   - One concern per PR. Adapter fixes for two tools should usually be two PRs.
+  - **Branch naming:** Use `category/description` format (e.g., `fix/navigation-lifecycle`, `feat/new-tool-adapter`).
   - Use imperative-mood commit subjects: `fix(chatgpt): update sidebar selector after redesign`.
   - Reference the issue: `Fixes #42` in the PR description.
   - For schema changes (`DB_VERSION` bump in `src/lib/db.ts`), describe the migration in the PR.
