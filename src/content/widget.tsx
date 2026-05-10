@@ -3,7 +3,10 @@ import type { SiteAdapter } from './adapters/types';
 import type {
   RuntimeMessage,
   SaveBookmarkResponse,
+  GetBookmarkResponse,
+  GenericResponse,
 } from '../lib/messages';
+import type { Bookmark } from '../lib/types';
 
 interface Props {
   adapter: SiteAdapter;
@@ -13,15 +16,30 @@ type Status = 'idle' | 'saving' | 'saved' | 'error';
 
 export function Widget({ adapter }: Props) {
   const [open, setOpen] = useState(false);
+  const [existingBookmark, setExistingBookmark] = useState<Bookmark | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
   const titleInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    async function check() {
+      const message: RuntimeMessage = {
+        type: 'GET_BOOKMARK_BY_URL',
+        url: adapter.getCanonicalUrl(),
+      };
+      const resp = (await chrome.runtime.sendMessage(message)) as GetBookmarkResponse;
+      if (resp.ok) {
+        setExistingBookmark(resp.bookmark || null);
+      }
+    }
+    void check();
+  }, [adapter]);
+
   function openModal() {
-    setTitle(adapter.getDefaultTitle());
-    setDescription(adapter.getDefaultDescription());
+    setTitle(existingBookmark?.title || adapter.getDefaultTitle());
+    setDescription(existingBookmark?.description || adapter.getDefaultDescription());
     setStatus('idle');
     setError(null);
     setOpen(true);
@@ -61,6 +79,7 @@ export function Widget({ adapter }: Props) {
     try {
       const resp = (await chrome.runtime.sendMessage(message)) as SaveBookmarkResponse;
       if (resp.ok) {
+        setExistingBookmark(resp.bookmark);
         setStatus('saved');
         setTimeout(() => setOpen(false), 900);
       } else {
@@ -73,14 +92,42 @@ export function Widget({ adapter }: Props) {
     }
   }
 
+  async function unsave() {
+    if (!existingBookmark) return;
+    setStatus('saving');
+    setError(null);
+    const message: RuntimeMessage = {
+      type: 'DELETE_BOOKMARK',
+      bookmarkId: existingBookmark.id,
+    };
+    try {
+      const resp = (await chrome.runtime.sendMessage(message)) as GenericResponse;
+      if (resp.ok) {
+        setExistingBookmark(null);
+        setStatus('saved');
+        setTimeout(() => setOpen(false), 900);
+      } else {
+        setStatus('error');
+        setError(resp.error || 'Failed to unsave');
+      }
+    } catch (e) {
+      setStatus('error');
+      setError(e instanceof Error ? e.message : 'Failed to unsave');
+    }
+  }
+
   return (
     <>
       <style>{styles}</style>
-      <button className="cai-fab" title="Bookmark this chat" onClick={openModal}>
+      <button className="cai-fab" title={existingBookmark ? 'Unsave this chat' : 'Bookmark this chat'} onClick={existingBookmark ? unsave : openModal}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+          {existingBookmark ? (
+            <path d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-7-3.5L5 21V5z" fill="currentColor" />
+          ) : (
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+          )}
         </svg>
-        <span>Save</span>
+        <span>{existingBookmark ? 'Unsave' : 'Save'}</span>
       </button>
 
       {open && (
