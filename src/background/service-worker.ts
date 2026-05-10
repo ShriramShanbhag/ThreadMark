@@ -1,4 +1,4 @@
-import { addBookmark, findByUrl, markBroken } from '../lib/db';
+import { addBookmark, findByUrl, markBroken, deleteBookmark } from '../lib/db';
 import type {
   RuntimeMessage,
   SaveBookmarkResponse,
@@ -26,6 +26,14 @@ async function handleMessage(
   switch (message.type) {
     case 'SAVE_BOOKMARK': {
       const bookmark = await addBookmark(message.bookmark);
+      return { ok: true, bookmark };
+    }
+    case 'DELETE_BOOKMARK': {
+      await deleteBookmark(message.bookmarkId);
+      return { ok: true };
+    }
+    case 'GET_BOOKMARK_BY_URL': {
+      const bookmark = await findByUrl(message.url);
       return { ok: true, bookmark };
     }
     case 'BOOKMARK_DEAD': {
