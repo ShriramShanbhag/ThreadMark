@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  bulkImportBookmarks,
   clearBroken,
   deleteBookmark,
+  exportAllBookmarks,
   listBookmarks,
   updateBookmark,
 } from '../lib/db';
-import type { Bookmark, AIToolId } from '../lib/types';
+import type { Bookmark, AIToolId, NewBookmark } from '../lib/types';
 import { SITES, siteById } from '../lib/sites';
 import type { RuntimeMessage } from '../lib/messages';
 
@@ -16,6 +18,7 @@ export function Library() {
   const [query, setQuery] = useState('');
   const [tool, setTool] = useState<ToolFilter>('all');
   const [editingId, setEditingId] = useState<string | null>(null);
+  const importInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     void reload();
@@ -23,6 +26,35 @@ export function Library() {
 
   async function reload() {
     setBookmarks(await listBookmarks());
+  }
+
+  async function exportBookmarks() {
+    const data = await exportAllBookmarks();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bookmarks-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function importBookmarks(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const json = JSON.parse(event.target?.result as string);
+        await bulkImportBookmarks(json as NewBookmark[]);
+        await reload();
+      } catch (err) {
+        console.error('Failed to import bookmarks:', err);
+        alert('Invalid JSON file.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
   }
 
   const filtered = useMemo(() => {
@@ -81,6 +113,17 @@ export function Library() {
               <option key={s.id} value={s.id}>{s.name}</option>
             ))}
           </select>
+          <div className="library-actions">
+            <button className="popup-btn-secondary" onClick={exportBookmarks}>Export as JSON</button>
+            <button className="popup-btn-secondary" onClick={() => importInputRef.current?.click()}>Import from JSON</button>
+            <input
+              type="file"
+              ref={importInputRef}
+              onChange={importBookmarks}
+              accept=".json"
+              style={{ display: 'none' }}
+            />
+          </div>
         </div>
         <div className="library-summary">
           {filtered.length} {filtered.length === 1 ? 'bookmark' : 'bookmarks'}

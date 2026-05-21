@@ -39,6 +39,26 @@ function newId(): string {
   return `bm_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
+export async function exportAllBookmarks(): Promise<Bookmark[]> {
+  return await listBookmarks();
+}
+
+export async function bulkImportBookmarks(bookmarks: NewBookmark[]): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction('bookmarks', 'readwrite');
+  const now = Date.now();
+  for (const input of bookmarks) {
+    const bookmark: Bookmark = {
+      ...input,
+      id: newId(),
+      createdAt: now,
+      updatedAt: now,
+    };
+    await tx.store.put(bookmark);
+  }
+  await tx.done;
+}
+
 export async function addBookmark(input: NewBookmark): Promise<Bookmark> {
   const now = Date.now();
   const bookmark: Bookmark = {
