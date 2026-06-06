@@ -32,10 +32,16 @@ export const geminiAdapter: SiteAdapter = {
   },
 
   isLiveChat() {
-    if (!/\/app(\/|\?|$)/i.test(location.pathname) && !/\/u\/\d+\/app/.test(location.pathname)) {
-      return /\/app/i.test(location.pathname);
-    }
-    return document.querySelector('user-query, [data-test-id="user-query"], message-content') !== null;
+    // Check if we are on the app page
+    const isApp = /\/(app|gem)(\/|\?|$)/i.test(location.pathname) || /\/u\/\d+\/(app|gem)/.test(location.pathname);
+    if (!isApp) return false;
+
+    // Check for confirmed indicators of an active chat thread
+    const hasChatElements = document.querySelector(
+      'user-query, model-response'
+    ) !== null;
+
+    return hasChatElements;
   },
 
   mountAnchor() {
