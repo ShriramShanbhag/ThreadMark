@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { siteForUrl } from '../lib/sites';
-import type { PageInfo, RuntimeMessage } from '../lib/messages';
+import type { PageInfo } from '../lib/messages';
 import type { Bookmark } from '../lib/types';
 import { listBookmarks } from '../lib/db';
 import { SaveForm } from './SaveForm';
@@ -22,23 +21,10 @@ export function Popup() {
     }
 
     chrome.runtime.onMessage.addListener(reload);
-    return () => chrome.runtime.onMessage.removeListener(reload);
+    return () => chrome.runtime.removeListener(reload);
   }, []);
 
   async function load() {
-    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-    const tab = tabs[0];
-    const tabUrl = tab?.url ?? '';
-    const site = siteForUrl(tabUrl);
-
-    if (site && tab?.id != null) {
-      const pageInfo = await getPageInfo(tab.id);
-      if (pageInfo && pageInfo.isLiveChat) {
-        setView({ kind: 'save', pageInfo });
-        return;
-      }
-    }
-
     const bookmarks = await listBookmarks();
     setView({ kind: 'recents', bookmarks });
   }
@@ -64,15 +50,5 @@ export function Popup() {
           onChange={() => load()}
         />
       );
-  }
-}
-
-async function getPageInfo(tabId: number): Promise<PageInfo | null> {
-  const message: RuntimeMessage = { type: 'GET_PAGE_INFO' };
-  try {
-    const resp = (await chrome.tabs.sendMessage(tabId, message)) as PageInfo | undefined;
-    return resp ?? null;
-  } catch {
-    return null;
   }
 }
