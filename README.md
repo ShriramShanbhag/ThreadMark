@@ -56,7 +56,7 @@
 
   ## Usage
 
-  - Open a chat on any supported AI tool. A small **Save** pill appears bottom-right. Click it.
+  - Open a chat on any supported AI tool. A small **Save to ThreadMark** pill appears bottom-right. Click it.
   - Or click the extension's toolbar icon while on a chat — same form, prefilled.
   - Click the toolbar icon anywhere else to see your recent bookmarks; click **Open library →** for the full view.
   - The library lets you search, filter by tool, edit, and delete bookmarks.
