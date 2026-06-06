@@ -94,7 +94,7 @@ export function Library() {
   return (
     <div className="library">
       <header className="library-header">
-        <h1>collate AI chats</h1>
+        <h1>ThreadMark</h1>
         <div className="library-controls">
           <input
             type="search"

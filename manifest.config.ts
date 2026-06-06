@@ -12,12 +12,12 @@ const HOST_MATCHES = [
 
 export default defineManifest({
   manifest_version: 3,
-  name: 'collate AI chats',
+  name: 'ThreadMark',
   version: '0.1.0',
   description: 'Bookmark interesting chat sessions across ChatGPT, Gemini, Grok, Claude, and Perplexity.',
   action: {
     default_popup: 'src/popup/index.html',
-    default_title: 'collate AI chats',
+    default_title: 'ThreadMark',
     default_icon: {
       '16': 'public/icons/16.png',
       '48': 'public/icons/48.png',
