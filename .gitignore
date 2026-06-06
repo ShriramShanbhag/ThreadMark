@@ -5,3 +5,5 @@ dist
 .vite
 .idea
 .vscode
+.gemini-context/
+GEMINI.md
