@@ -37,7 +37,7 @@
   ### From source (recommended for now)
 
   ```bash
-  git clone https://github.com/<github-user>/threadmark.git
+  git clone https://github.com/ShriramShanbhag/threadmark.git
   cd threadmark
   npm install
   npm run build
