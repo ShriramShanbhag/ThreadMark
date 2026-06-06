@@ -21,7 +21,7 @@ export function Popup() {
     }
 
     chrome.runtime.onMessage.addListener(reload);
-    return () => chrome.runtime.removeListener(reload);
+    return () => chrome.runtime.onMessage.removeListener(reload);
   }, []);
 
   async function load() {
