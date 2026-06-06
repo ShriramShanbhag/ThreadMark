@@ -4,7 +4,7 @@ import type { SiteAdapter } from './adapters/types';
 import { Widget } from './widget';
 import type { RuntimeMessage, PageInfo } from '../lib/messages';
 
-const HOST_ID = 'collate-ai-chats-widget-host';
+const HOST_ID = 'threadmark-widget-host';
 const DEAD_REPORT_DELAY_MS = 4000;
 
 function mountWidget(adapter: SiteAdapter): void {

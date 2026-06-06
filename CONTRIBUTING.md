@@ -20,8 +20,8 @@
   ## Local setup
 
   ```bash
-  git clone https://github.com/<github-user>/collate-ai-chats.git
-  cd collate-ai-chats
+  git clone https://github.com/<github-user>/threadmark.git
+  cd threadmark
   npm install
   npm run build
   ```
