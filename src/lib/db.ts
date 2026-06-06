@@ -1,7 +1,7 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type { Bookmark, NewBookmark } from './types';
 
-interface CollateDB extends DBSchema {
+interface ThreadMarkDB extends DBSchema {
   bookmarks: {
     key: string;
     value: Bookmark;
@@ -12,14 +12,14 @@ interface CollateDB extends DBSchema {
   };
 }
 
-const DB_NAME = 'collateAIChats';
+const DB_NAME = 'threadmark';
 const DB_VERSION = 1;
 
-let dbPromise: Promise<IDBPDatabase<CollateDB>> | null = null;
+let dbPromise: Promise<IDBPDatabase<ThreadMarkDB>> | null = null;
 
-function getDB(): Promise<IDBPDatabase<CollateDB>> {
+function getDB(): Promise<IDBPDatabase<ThreadMarkDB>> {
   if (!dbPromise) {
-    dbPromise = openDB<CollateDB>(DB_NAME, DB_VERSION, {
+    dbPromise = openDB<ThreadMarkDB>(DB_NAME, DB_VERSION, {
       upgrade(db) {
         if (!db.objectStoreNames.contains('bookmarks')) {
           const store = db.createObjectStore('bookmarks', { keyPath: 'id' });

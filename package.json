@@ -1,5 +1,5 @@
 {
-  "name": "collate-ai-chats",
+  "name": "threadmark",
   "version": "0.1.0",
   "description": "Bookmark and collate chat sessions across ChatGPT, Gemini, Grok, Claude, and Perplexity.",
   "private": true,
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "collate-ai-chats": "file:",
+    "threadmark": "file:",
     "idb": "^8.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
