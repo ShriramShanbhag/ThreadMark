@@ -23,9 +23,12 @@ export function RecentsList({ bookmarks, onChange }: Props) {
   return (
     <div className="popup recents">
       <div className="popup-header">
-        <span className="popup-title">collate AI chats</span>
-        <button className="popup-link" onClick={openLibrary}>Open library →</button>
+        <span className="popup-title">ThreadMark</span>
+        <button className="popup-link" onClick={openLibrary}>
+          Open library →
+        </button>
       </div>
+
 
       {broken.length > 0 && (
         <div className="popup-section">
