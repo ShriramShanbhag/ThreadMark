@@ -119,7 +119,7 @@ export function Widget({ adapter }: Props) {
   return (
     <>
       <style>{styles}</style>
-      <button className="cai-fab" title={existingBookmark ? 'Unsave this chat' : 'Bookmark this chat'} onClick={existingBookmark ? unsave : openModal}>
+      <button className="cai-fab" title={existingBookmark ? 'Remove from ThreadMark' : 'Save to ThreadMark'} onClick={existingBookmark ? unsave : openModal}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           {existingBookmark ? (
             <path d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-7-3.5L5 21V5z" fill="currentColor" />
@@ -127,7 +127,7 @@ export function Widget({ adapter }: Props) {
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
           )}
         </svg>
-        <span>{existingBookmark ? 'Unsave' : 'Save'}</span>
+        <span>{existingBookmark ? 'Remove from ThreadMark' : 'Save to ThreadMark'}</span>
       </button>
 
       {open && (
@@ -189,8 +189,8 @@ const styles = `
   padding: 8px 12px;
   border: none;
   border-radius: 999px;
-  background: #1f2937;
-  color: #f9fafb;
+  background: #2563eb;
+  color: #ffffff;
   font: 500 13px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   cursor: pointer;
