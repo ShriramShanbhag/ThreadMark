@@ -19,16 +19,18 @@ export default defineManifest({
     default_popup: 'src/popup/index.html',
     default_title: 'ThreadMark',
     default_icon: {
-      '16': 'public/icons/16.png',
-      '48': 'public/icons/48.png',
-      '128': 'public/icons/128.png',
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     },
   },
   icons: {
-    '16': 'public/icons/16.png',
-    '48': 'public/icons/48.png',
-    '128': 'public/icons/128.png',
-  },
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }, 
   background: {
     service_worker: 'src/background/service-worker.ts',
     type: 'module',
