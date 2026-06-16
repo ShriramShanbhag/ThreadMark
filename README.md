@@ -1,3 +1,4 @@
+![Threadmark](https://github.com/ShriramShanbhag/ThreadMark/blob/main/public/brandimg/threadmark.png)
 # ThreadMark.ai
 
   > Bookmark and collate interesting chat sessions across ChatGPT, Gemini, Grok, Claude, and Perplexity — all from one Chrome extension. Your data never leaves your browser.
