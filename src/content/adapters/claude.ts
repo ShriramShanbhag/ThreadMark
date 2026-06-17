@@ -35,7 +35,7 @@ export const claudeAdapter: SiteAdapter = {
 
   isLiveChat() {
     if (!/\/chat\/[a-f0-9-]+/i.test(location.pathname)) return false;
-    return document.querySelector('main') !== null;
+    return document.querySelector('#main-content') !== null;
   },
 
   mountAnchor() {
