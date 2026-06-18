@@ -9,7 +9,6 @@ const DEAD_REPORT_DELAY_MS = 4000;
 const ENABLE_DEAD_BOOKMARK_DETECTION = false;
 
 function mountWidget(adapter: SiteAdapter): void {
-  console.log("Mounting widget for host ", HOST_ID)
   if (document.getElementById(HOST_ID)) return;
   const host = document.createElement('div');
   host.id = HOST_ID;
@@ -27,7 +26,6 @@ function unmountWidget(): void {
 }
 
 function setupMessageListener(adapter: SiteAdapter): void {
-  console.log("setupMessageListener")
   chrome.runtime.onMessage.addListener((message: RuntimeMessage, _sender, sendResponse) => {
     if (message.type === 'GET_PAGE_INFO') {
       const info: PageInfo = {
@@ -102,13 +100,11 @@ function onUrlChange(adapter: SiteAdapter): void {
 
 function init(): void {
   const adapter = pickAdapter(location);
-  console.log("Adapter: ", adapter)
   if (!adapter) return;
 
   setupMessageListener(adapter);
 
   if (adapter.isLiveChat()) {
-    console.log("next:")
     mountWidget(adapter);
   } else {
     waitForLiveChat(adapter);
