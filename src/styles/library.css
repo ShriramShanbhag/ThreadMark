@@ -12,10 +12,17 @@ body { min-height: 100vh; }
   padding: 32px 24px 64px;
 }
 
+.library-header {
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
 .library-header h1 {
   margin: 0 0 16px;
   font-size: 24px;
   font-weight: 600;
+  color: var(--primary);
 }
 
 .library-controls {
@@ -70,19 +77,21 @@ body { min-height: 100vh; }
 .library-warning { color: var(--warning); }
 
 .library-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .library-card {
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: grid;
+  grid-template-columns: 70px 80px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  height: 60px;
 }
 .library-card.broken {
   background: #fffbeb;
@@ -91,22 +100,27 @@ body { min-height: 100vh; }
 .library-card.editing {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.library-card-header {
+.library-card-content {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  gap: 2px;
 }
 
 .library-card-tool {
-  display: inline-block;
   color: #fff;
-  padding: 3px 9px;
-  border-radius: 999px;
+  padding: 2px 8px;
+  border-radius: 6px;
   font-size: 11px;
   font-weight: 500;
-  width: fit-content;
+  text-align: center;
 }
 
 .library-card-date {
@@ -117,45 +131,47 @@ body { min-height: 100vh; }
 .library-card-title {
   font: inherit;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   text-align: left;
   background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
   color: var(--fg);
-  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 .library-card-title:hover { color: var(--primary); }
 
 .library-card-desc {
-  color: #374151;
-  font-size: 13px;
-  margin: 0;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.library-card-url {
   color: var(--muted);
-  font-size: 11px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .library-card-actions {
   display: flex;
-  gap: 6px;
-  justify-content: flex-end;
-  margin-top: 4px;
+  gap: 4px;
 }
 
-.library-card-delete:hover {
+.icon-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.icon-btn:hover {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+.icon-btn-delete:hover {
   color: var(--danger);
   border-color: #fecaca;
   background: #fee2e2;
@@ -163,6 +179,7 @@ body { min-height: 100vh; }
 
 .library-card-title-input,
 .library-card-desc-input {
+  width: 100%;
   font: inherit;
   padding: 7px 9px;
   border: 1px solid var(--border);

@@ -234,17 +234,16 @@ function Card({ bookmark, editing, onEdit, onCancelEdit, onSave, onDelete }: Car
 
   return (
     <div className="library-card">
-      <div className="library-card-header">
-        <div className="library-card-tool" style={{ background: tool?.color }}>{tool?.name}</div>
-        <span className="library-card-date">{formatDate(bookmark.createdAt)}</span>
+      <div className="library-card-tool" style={{ background: tool?.color }}>{tool?.name}</div>
+      <div className="library-card-date">{formatDate(bookmark.createdAt)}</div>
+      <div className="library-card-content">
+        <button className="library-card-title" onClick={open} title={bookmark.title}>{bookmark.title}</button>
+        <div className="library-card-desc">{bookmark.description}</div>
       </div>
-      <button className="library-card-title" onClick={open}>{bookmark.title}</button>
-      {bookmark.description && <p className="library-card-desc">{bookmark.description}</p>}
-      <div className="library-card-url" title={bookmark.url}>{bookmark.url}</div>
       <div className="library-card-actions">
-        <button className="popup-btn-secondary" onClick={onEdit}>Edit</button>
-        <button className="popup-btn-secondary library-card-delete" onClick={onDelete}>Delete</button>
-        <button className="popup-btn-primary" onClick={open}>Open</button>
+        <button className="icon-btn" onClick={onEdit} title="Edit">✎</button>
+        <button className="icon-btn icon-btn-delete" onClick={onDelete} title="Delete">🗑</button>
+        <button className="icon-btn" onClick={open} title="Open">↗</button>
       </div>
     </div>
   );
@@ -263,12 +262,14 @@ function BrokenCard({
   return (
     <div className="library-card broken">
       <div className="library-card-tool" style={{ background: tool?.color }}>{tool?.name}</div>
-      <div className="library-card-title">{bookmark.title}</div>
-      <p className="library-card-desc">This chat appears to be gone or was never reached.</p>
-      <div className="library-card-url" title={bookmark.url}>{bookmark.url}</div>
+      <div className="library-card-date">Broken</div>
+      <div className="library-card-content">
+        <div className="library-card-title">{bookmark.title}</div>
+        <div className="library-card-desc">This chat appears to be gone.</div>
+      </div>
       <div className="library-card-actions">
-        <button className="popup-btn-secondary" onClick={onKeep}>Keep anyway</button>
-        <button className="popup-btn-primary" onClick={onDelete}>Delete</button>
+        <button className="icon-btn" onClick={onKeep} title="Keep">✓</button>
+        <button className="icon-btn icon-btn-delete" onClick={onDelete} title="Delete">🗑</button>
       </div>
     </div>
   );
